@@ -1276,7 +1276,7 @@ div[style*="overflow-y:auto"]{overscroll-behavior:contain}
 <button class="t-btn sub" id="t-ends">エンディングコレクション <span id="t-ends-n"></span></button>
 <div class="t-note">実在の人物・番組を題材にした創作フィクション（ファンメイド作品）です。会話やナオの結果は創作であり、史実の選抜結果とは異なる分岐を含みます。</div>
 <div class="t-note" style="font-size:9px;line-height:1.55;opacity:.72">追加写真の一部は Wikimedia Commons のCCライセンス写真などです（トッポッキ＝jetalone／CC BY 2.0、漢江の夜景＝d'n'c／CC BY-SA 2.0（カバー写真は別トリミング・反転の加工版）、東京ドーム＝ClarkSui／CC BY-SA 3.0、弘大の通り＝Minseong Kim／CC BY-SA 4.0、サムギョプサル＝revi／CC BY 2.0 KR、景福宮＝Kokiri／CC BY-SA 3.0、Nソウルタワー＝lumoplank／CC0、大阪城＝Martin Falbisoner／CC BY-SA 4.0（母のカバー写真は別トリミングの加工版）、広蔵市場のチヂミ＝Bo Park（米陸軍）／パブリックドメイン、パン屋のショーケース＝Steam Pipe Trunk Distribution Venue／CC BY 2.0、明洞の夜＝Christian Bolz／CC BY-SA 4.0）。BGM・効果音は端末内で合成したオリジナルです。</div>
-<div class="t-ver">マンネ編 v3</div>
+<div class="t-ver">マンネ編 v4</div>
 </div>
 </div>
 <!-- INTRO -->
@@ -1473,6 +1473,9 @@ const KSTAT={
  kassho:{st:"福岡から、世界へ"},
  heitetsu:{st:"最後まで、諦めない"},
 };
+/* v4: timeline gate shared by every people-list (roster / contacts / pickers / search / room members) — a character appears only once they have entered the story */
+const CAST_ENTRY={yushi:2,sungchan:2,eunseok:3,sion:4,seungon:5,riku:6,sakuya:6,ryo:6,jungmin:7,anderson:7,ryu:7,kassho:7,haruta:7,minjae:7,heitetsu:7,daeyoung:9};
+function castIn(k){return !!S&&(S.ended||S.scene>=(CAST_ENTRY[k]||0));}
 /* roster: res: 0=未発表 1=デビュー確定(史実) 2=選抜後離脱(史実) 3=最終選出ならず(史実) - nao/sakuyaはIFで動的 */
 const ROSTER=[
  {k:"nao",n:"ナオ",av:"assets/av-nao.jpg",role:"主人公",desc:"主人公。2008年5月25日生まれ。2015年4月、6歳10ヶ月でSM入所。全員の先輩なのに最年少。学校（ソウル日本人学校）では女子、会社では男子の二重生活を送る。秘密を知るのは、開始時点ではケアチームと家族のみ。"},
@@ -1571,7 +1574,7 @@ const SCENES=[
  {c:[
   {t:"「私も行く。絶対に行く」と画面に言う",e:{eval:3,bond:1},r:[["sungchan","その目、いいね。……俺も、置いていかれないようにしないと"]]},
   {t:"希望とプレッシャーで、静かに見入る",e:{eval:2,crisis:1},r:[["yushi","……近いんだよ、意外と。レッスン室とデビューは"]]},
-  {t:"「チソン先輩、すごい……」と素直に漏らす",e:{bond:3},r:[["sungchan","素直だな。……そういうとこ、嫌いじゃないけど"]]}
+  {t:"「チソン先輩、すごい……」と素直に漏らす",e:{bond:3},r:[["sungchan","……チソン先輩、な。画面の向こうでも、あの余裕だ。……すごいのは、間違いないよ"]]}
  ]},
  {d:"2016年12月 ― 年末評価"},
  {s:"その年の最後の評価で、私は自由曲にジョンヒョンの『하루의 끝（End of a Day）』を選んだ。8歳が大人の慰めの歌を歌うのは、本来は似合わないはずだった"},
@@ -2530,7 +2533,7 @@ function openListSearch(){
  inp.addEventListener("input",()=>{const raw=inp.value.trim();const q=kanaN(raw).toLowerCase();const res=$("#srch-res");if(!q){res.innerHTML=`<div class="locknote">トークのタイトルや友だちの名前で検索できるよ。</div>`;return;}
   let h="";
   Object.keys(THREADS).filter(t=>THREADS[t].app===curApp&&threadVisible(t)&&kanaN(THREADS[t].title).toLowerCase().includes(q)).forEach(t=>{h+=`<button class="srch-hit" data-srth="${t}"><b>${esc(THREADS[t].title)}</b><span>${curApp==="kakao"?"채팅":"トーク"}</span></button>`;});
-  if(curApp==="kakao"){Object.keys(CAST).filter(k=>kanaN(CAST[k].n||"").toLowerCase().includes(q)||(KSTAT[k]&&kanaN(KSTAT[k].st).toLowerCase().includes(q))).forEach(k=>{h+=`<button class="srch-hit" data-srkp="${k}"><b>${esc(CAST[k].n)}</b><span>${esc((KSTAT[k]&&KSTAT[k].st)||roleOf(k))}</span></button>`;});}
+  if(curApp==="kakao"){Object.keys(CAST).filter(k=>castIn(k)).filter(k=>kanaN(CAST[k].n||"").toLowerCase().includes(q)||(KSTAT[k]&&kanaN(KSTAT[k].st).toLowerCase().includes(q))).forEach(k=>{h+=`<button class="srch-hit" data-srkp="${k}"><b>${esc(CAST[k].n)}</b><span>${esc((KSTAT[k]&&KSTAT[k].st)||roleOf(k))}</span></button>`;});}
   else{[["nao","ナオ"],["mom","母"],["sakuya","サクヤ"]].filter(x=>kanaN(x[1]).includes(kanaN(raw))).forEach(x=>{h+=`<button class="srch-hit" data-srlp="${x[0]}"><b>${x[1]}</b><span>友だち</span></button>`;});}
   res.innerHTML=h||`<div class="locknote">「${esc(raw)}」は見つからなかったよ。</div>`;
   res.querySelectorAll("[data-srth]").forEach(b=>b.addEventListener("click",()=>openThread(b.dataset.srth)));
@@ -2606,8 +2609,8 @@ function renderList(app,tab){curApp=app;if(tab)listTabs[app]=tab;const tb=listTa
   fr0.forEach(k=>{h+=`<button class="thread" data-kprof="${k}">${avHTML(k,50)}<span class="tt"><span class="tn">${esc(CAST[k].n)}</span><span class="tp">${esc(KSTAT[k].st||roleOf(k))}</span></span>${musChip(k)}</button>`;});
   /* v49: real KakaoTalk friends tab also carries a 채널 (channels) section under the friend list */
   h+=`<div class="fr-sec"><span>채널</span></div>`;
-  h+=`<button class="thread" data-chan="SMTOWN"><img class="av" loading="lazy" decoding="async" src="assets/group2023.jpg" style="border-radius:14px" alt=""><span class="tt"><span class="tn">SMTOWN</span><span class="tp">SM 공식 채널 · 친구 182만</span></span><span class="ch-chip">채널 추가</span></button>`;
-  h+=`<button class="thread" data-chan="NCT Universe"><img class="av" loading="lazy" decoding="async" src="assets/lastart1.jpg" style="border-radius:14px" alt=""><span class="tt"><span class="tn">NCT Universe : LASTART</span><span class="tp">공식 채널 · 친구 96만</span></span><span class="ch-chip">채널 추가</span></button>`;
+  h+=`<button class="thread" data-chan="SMTOWN"><img class="av" loading="lazy" decoding="async" src="${(S.ended||S.scene>=7)?"assets/group2023.jpg":"assets/stage.jpg"}" style="border-radius:14px" alt=""><span class="tt"><span class="tn">SMTOWN</span><span class="tp">SM 공식 채널 · 친구 182만</span></span><span class="ch-chip">채널 추가</span></button>`;
+  if(S.ended||S.scene>=7)h+=`<button class="thread" data-chan="NCT Universe"><img class="av" loading="lazy" decoding="async" src="assets/lastart1.jpg" style="border-radius:14px" alt=""><span class="tt"><span class="tn">NCT Universe : LASTART</span><span class="tp">공식 채널 · 친구 96만</span></span><span class="ch-chip">채널 추가</span></button>`;
   h+=`<div class="locknote">プロフィールをタップすると、当時のカカオプロフィール画面が開くよ。<br>物語は채팅（チャット）タブのトークで進みます。</div>`;
  }else if(app==="line"&&tb==="home"){
   /* v49: the real LINE home opens with a search bar above the profile card */
@@ -2885,7 +2888,9 @@ function ifResult(k){if(!S.rosterRevealed)return "結果はまだ分からない
 /* v39: roster search aliases — the full names printed in each card's prof (前田陸／藤永咲哉／廣瀬遼／サクヤ) and their readings, so りく・さくや・りょうでもヒットする。合流前のデヨンの伏せカードには付けない（検索経由の先行表示防止） */
 const RO_Q={riku:"前田陸マエダリク",sakuya:"藤永咲哉フジナガサクヤ",ryo:"廣瀬遼ヒロセリョウ"};
 function renderRoster(){let h=`<div class="ro-search">${IC_SEARCH}<input id="ro-q" type="text" placeholder="練習生を検索"></div><div class="ro-sec">固定メンバー・史実の練習生（結果は物語の進行で公開）</div>`;
- ROSTER.filter(r=>r.k!=="nao").forEach(r=>{if(r.k==="daeyoung"&&S.scene<9&&!S.ended){h+=`<div class="ro-card" data-name="？？？"><span class="avc" style="width:54px;height:54px;background:#b9bec6">？</span><div style="flex:1;min-width:0"><div class="rn">？？？</div><div class="rp">追加練習生<br>まだ合流していない</div><div class="rr">結果：未発表</div></div></div>`;return;}
+ const _mem=ROSTER.filter(r=>r.k!=="nao"&&castIn(r.k));
+ if(!_mem.length)h+=`<div class="locknote">まだ名簿に載っている練習生はいないよ。物語を進めると、入所・登場した人から順に載っていくよ。</div>`;
+ _mem.forEach(r=>{
   const m=CAST[r.k];const res=S.rosterRevealed?`<div class="rr done">${RESF[r.k]||"選出ならず"}</div>`:`<div class="rr">結果：未発表</div>`;
   h+=`<div class="ro-card" data-name="${esc(m.n)}" data-q="${esc(m.n+(RO_Q[r.k]||""))}">${avHTML(r.k,54)}<div style="flex:1;min-width:0"><div class="rn">${esc(m.n)}${(r.k==="sion"||r.k==="yushi")?'<span class="tag fix">固定</span>':""}</div><div class="rp">${esc(r.role+(r.since?" ― "+r.since:""))}<br>${roDesc(r)}</div>${res}</div></div>`;});
  h+=`<div class="ro-sec">主人公（結果はIF ― あなたの選択で分岐）</div>`;
@@ -3453,10 +3458,10 @@ function renderTel(){const body=$("#tel-body");
   const rows=telRecents().filter(r=>telSeg==="all"||r.dir==="miss");
   h+=rows.length?rows.map(r=>`<button class="tel-row" data-tcall>${r.dir==="out"?`<span class="tdir">${I_TARROW}</span>`:""}<span class="tt"><span class="tn${r.dir==="miss"?" miss":""}">${esc(r.n)}</span><span class="tp">${esc(r.sub)}</span></span><time>${r.time}</time><span class="tinfo">${I_TINFO}</span></button>`).join(""):`<div class="locknote">不在着信はないよ。</div>`;
  }else if(telTab==="fav"){
-  h+=[["sakuya","サクヤ","LINE オーディオ"],["mom","母","モバイル"],["staff","SM スタッフ","会社"]].map(x=>`<button class="tel-row" data-tcall style="padding-left:16px">${avHTML(x[0],40)}<span class="tt"><span class="tn">${esc(x[1])}</span><span class="tp">${esc(x[2])}</span></span><span class="tinfo">${I_TINFO}</span></button>`).join("");
+  h+=[["sakuya","サクヤ","LINE オーディオ"],["mom","母","モバイル"],["staff","SM スタッフ","会社"]].filter(x=>x[0]!=="sakuya"||castIn("sakuya")).map(x=>`<button class="tel-row" data-tcall style="padding-left:16px">${avHTML(x[0],40)}<span class="tt"><span class="tn">${esc(x[1])}</span><span class="tp">${esc(x[2])}</span></span><span class="tinfo">${I_TINFO}</span></button>`).join("");
  }else if(telTab==="contacts"){
   h+=`<button class="tel-row" data-tcall style="padding-left:16px"><img class="av" src="${naoAgeAv()}" style="width:40px;height:40px" alt=""><span class="tt"><span class="tn">ナオ</span><span class="tp">マイカード</span></span></button>`;
-  const keys=["sion","yushi","riku","sakuya","daeyoung","ryo","jungmin","anderson","ryu","minjae","haruta","kassho","heitetsu","sakuya","mom","staff"].filter(k=>k!=="daeyoung"||daeyoungIn());
+  const keys=[...new Set(["sion","yushi","riku","sakuya","daeyoung","ryo","jungmin","anderson","ryu","minjae","haruta","kassho","heitetsu","mom","staff"])].filter(k=>castIn(k));
   h+=keys.map(k=>`<button class="tel-row" data-tcall style="padding-left:16px">${avHTML(k,40)}<span class="tt"><span class="tn">${esc(CAST[k].n)}</span><span class="tp">${esc(roleOf(k))}</span></span></button>`).join("");
  }else if(telTab==="keypad"){
   h+=`<div class="tel-num">${telNum?esc(telNum):"&nbsp;"}</div><div class="tel-pad">${[["1",""],["2","ABC"],["3","DEF"],["4","GHI"],["5","JKL"],["6","MNO"],["7","PQRS"],["8","TUV"],["9","WXYZ"],["*",""],["0","＋"],["#",""]].map(k=>`<button class="tel-key" data-tkey="${k[0]}"><b>${k[0]}</b><span>${k[1]}</span></button>`).join("")}</div><div class="tel-callrow"><span style="width:44px"></span><button class="tel-call" data-tdial aria-label="発信">${SVG_TEL}</button>${telNum?`<button class="tel-del" data-tdel aria-label="削除">${I_TDEL}</button>`:`<span style="width:44px"></span>`}</div>`;
@@ -3495,7 +3500,7 @@ function openKakaoSearch(){
  inp.addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.isComposing&&e.keyCode!==229)push(inp.value);});
  inp.addEventListener("input",()=>{const raw=inp.value.trim();if(!raw){res.innerHTML=home();bindHome();return;}
   const q=kanaN(raw).toLowerCase();let h="";
-  const fr=Object.keys(CAST).filter(k=>kanaN(CAST[k].n||"").toLowerCase().includes(q)||(KSTAT[k]&&kanaN(KSTAT[k].st).toLowerCase().includes(q)));
+  const fr=Object.keys(CAST).filter(k=>castIn(k)).filter(k=>kanaN(CAST[k].n||"").toLowerCase().includes(q)||(KSTAT[k]&&kanaN(KSTAT[k].st).toLowerCase().includes(q)));
   if(fr.length)h+=`<div class="kk-sec"><span>친구</span></div>`+fr.map(k=>`<button class="thread" data-kkprof="${k}">${avHTML(k,46)}<span class="tt"><span class="tn">${esc(CAST[k].n)}</span><span class="tp">${esc((KSTAT[k]&&KSTAT[k].st)||roleOf(k))}</span></span></button>`).join("");
   const th=Object.keys(THREADS).filter(t=>THREADS[t].app==="kakao"&&threadVisible(t)&&kanaN(THREADS[t].title).toLowerCase().includes(q));
   if(th.length)h+=`<div class="kk-sec"><span>채팅</span></div>`+th.map(t=>{const thd=THREADS[t];const tav=thd.av?`<img class="av" loading="lazy" decoding="async" src="${thd.av}" style="width:46px;height:46px" alt="">`:avHTML(t==="sakuyaK"?"sakuya":t,46);return `<button class="thread" data-kkth="${t}">${tav}<span class="tt"><span class="tn">${esc(thd.title)}</span><span class="tp">채팅방</span></span></button>`;}).join("");
@@ -3562,7 +3567,7 @@ $("#homebar").addEventListener("click",()=>closeSys());
 /* ===== v52: per-app realism final round (2023) — every remaining deco button from the v51 list becomes a real first-stage screen. All state below is session-only; nothing touches the save format, the story data, or the gauges ===== */
 /* --- new-chat picker (KakaoTalk 채팅 ＋ / LINE トーク ＋): pick a friend; friends with a story thread route into it, everyone else gets a real (empty) new room --- */
 function openNewChat(app){const kakao=app==="kakao";
- const keys=kakao?["sion","yushi","riku","sakuya","ryo","jungmin","anderson","ryu","minjae","haruta","kassho","heitetsu"].concat(daeyoungIn()?["daeyoung"]:[]):["sakuya","mom"];
+ const keys=kakao?["sion","yushi","riku","sakuya","ryo","jungmin","anderson","ryu","minjae","haruta","kassho","heitetsu","daeyoung"].filter(k=>castIn(k)):["sakuya","mom"].filter(k=>k!=="sakuya"||S.ended||S.scene>=14);
  let sel=null;
  ovl(`<div class="sheet-wrap" data-closewrap><div class="sheet"><div class="grab"></div><div class="sh-h">${kakao?"새 대화 시작":"新しいトーク"}<button data-close>${IC_X}</button></div>
  <div class="sh-b">${keys.map(k=>`<button class="thread" data-ncf="${k}" style="width:100%">${avHTML(k,46)}<span class="tt"><span class="tn">${esc(CAST[k].n)}</span><span class="tp">${kakao?esc((KSTAT[k]&&KSTAT[k].st)||roleOf(k)):k==="sakuya"?"LASTART挑戦中":"実家（日本）"}</span></span><span class="nc-chk${kakao?"":" ln"}" data-ncchk>✓</span></button>`).join("")}</div>
@@ -3582,7 +3587,7 @@ function openNewRoom(app,k){const m=CAST[k];const kakao=app==="kakao";
  $("#nr-back").addEventListener("click",()=>openNewChat(app));
  $("#nr-field").addEventListener("click",()=>{const b=$("#nr-body");if(!b||b.dataset.noted)return;b.dataset.noted="1";b.insertAdjacentHTML("beforeend",`<div class="sys-line" style="margin:10px auto">送信は物語のトークでのみ行われます</div>`);b.scrollTop=b.scrollHeight;});}
 /* --- KakaoTalk chat-list music button: the friends' profile-music list, sharing play state with the profile cards (pfMusOn) --- */
-function openKakaoMusic(){const ks=Object.keys(KSTAT).filter(k=>KSTAT[k].mus&&CAST[k]);
+function openKakaoMusic(){const ks=Object.keys(KSTAT).filter(k=>KSTAT[k].mus&&CAST[k]&&castIn(k));
  ovl(`<div class="sheet-wrap" data-closewrap><div class="sheet"><div class="grab"></div><div class="sh-h">프로필 뮤직<button data-close>${IC_X}</button></div>
  <div class="sh-b">${ks.map(k=>`<div style="display:flex;align-items:center;gap:11px;padding:8px 16px">${avHTML(k,44)}<div style="flex:1;min-width:0"><div style="font-size:13.5px;font-weight:600;margin:0 2px 5px">${esc(CAST[k].n)}</div>${musCardHTML(KSTAT[k].mus,k)}</div></div>`).join("")}
  <div class="locknote">친구들의 프로필 뮤직이야。タップで再生／停止の見た目が切り替わるよ（プロフィール画面と連動）。</div></div></div>`);
@@ -3611,7 +3616,7 @@ function kakaoShopHTML(){const list=KS_PRODS.map((p,i)=>[p,i]).filter(x=>ksCat==
  h+=`<div class="locknote">쇼핑は当時（2023年）の카카오 선물하기風。商品をタップすると詳細が開き、장바구니と선물하기が使えるよ（この画面だけの演出）。</div>`;
  return h;}
 function openKSProduct(i){const p=KS_PRODS[i];if(!p)return;let q=1;
- const giftView=()=>{const fr=["sion","yushi","riku","sakuya","ryo"].concat(daeyoungIn()?["daeyoung"]:[]);
+ const giftView=()=>{const fr=["sion","yushi","riku","sakuya","ryo","daeyoung"].filter(k=>castIn(k));
   ksSheet(`<div class="grab"></div><div class="sh-h">선물할 친구 선택<button data-close>${IC_X}</button></div>
   ${fr.map(k=>`<button class="thread" data-ksg="${k}" style="width:100%">${avHTML(k,44)}<span class="tt"><span class="tn">${esc(CAST[k].n)}</span><span class="tp">${esc((KSTAT[k]&&KSTAT[k].st)||roleOf(k))}</span></span></button>`).join("")}<div style="height:10px"></div>`);
   document.querySelectorAll("#ovl [data-ksg]").forEach(b=>b.addEventListener("click",()=>{const k=b.dataset.ksg;
@@ -3789,10 +3794,10 @@ function openTTPostForm(src){
 const roomSet={};
 function openChatDrawer(){const tid=freeMode?"sakuyaL":(cur?cur.thread:null);if(!tid)return;const th=THREADS[tid];const kakao=th.app==="kakao";
  const st=roomSet[tid]||(roomSet[tid]={notif:true,pin:false,bg:0});
- const members=tid==="dorm"?["nao","sion","yushi","riku","sakuya","daeyoung","ryo","jungmin","anderson","ryu","kassho","haruta","minjae","heitetsu"]:tid==="mom"?["nao","mom"]:["nao","sakuya"];
+ const members=tid==="dorm"?["nao","sion","yushi","riku","sakuya","daeyoung","ryo","jungmin","anderson","ryu","kassho","haruta","minjae","heitetsu"].filter(k=>castIn(k)):tid==="g7"?["nao","sion","yushi","riku","sakuya","daeyoung","ryo"]:tid==="mom"?["nao","mom"]:th.k?["nao",th.k]:["nao","sakuya"];
  const got=phGot();const bgs=["#f7f7f9","#fdf6d8","#eef7ee","#ececf1"];const bgn=["デフォルト","イエロー","グリーン","グレー"];
  ovl(`<div class="cd-wrap"><div class="cd-bg" data-close></div><div class="cd-panel" style="background:${bgs[st.bg]}">
- <div style="padding:2px 16px 0"><div style="font-size:17px;font-weight:700">${esc(th.title)}</div><div style="font-size:12px;color:#8e8e93;margin-top:2px">${tid==="dorm"?"メンバー "+members.length+"人":kakao?"1:1 채팅":"1対1トーク"}</div></div>
+ <div style="padding:2px 16px 0"><div style="font-size:17px;font-weight:700">${esc(th.title)}</div><div style="font-size:12px;color:#8e8e93;margin-top:2px">${(tid==="dorm"||tid==="g7")?"メンバー "+members.length+"人":kakao?"1:1 채팅":"1対1トーク"}</div></div>
  <div class="cd-sec">メンバー</div>
  <div class="cd-mem">${members.map(k=>`<button data-cdm="${k}">${avHTML(k,46)}${esc(CAST[k].n)}</button>`).join("")}</div>
  <div class="cd-sec">写真・動画</div>
