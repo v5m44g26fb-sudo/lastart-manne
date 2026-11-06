@@ -8,6 +8,27 @@
 
 ## 主人公の写真（assets/nao-profile.jpg、assets/av-nao.jpg）
 - 本人指定の作中ビジュアル専用写真（男装設定・本作専用）を使用。女性の写真は使用していない。
+- 担当範囲：選抜編以降のプロフィール相当表示（nao-profile.jpg）／アバター（av-nao.jpg）。
+
+## 主人公の年齢別ビジュアル（本人提供・マンネ編専用、2026-11-06差し替え確定版）
+本人が提供した作中なおの年齢別ビジュアル。本作（マンネ編）限定使用、他作品への流用不可。
+- assets/nao-age7.jpg ― 7歳（水色ポロシャツ）。入所期＝2015年〜の練習生時代編序盤のアバター／写真。
+- assets/nao-age10.jpg ― 10歳（白Tシャツ）。2018年前後（「10歳と、10周年」の章あたり）。
+- assets/nao-age12.jpg ― 12歳（白シャツ＋紺ベスト）。2020年5月〜2021年（「歌の相方と、先に行く後輩」の章あたり）。
+- assets/nao-age15.jpg ― 15歳（黒パーカー）。選抜編（2023年）〜デビュー編のアバター／写真。
+- 旧版（紺セーター系、profile-inbox の *-superseded.jpg）は使用禁止。本作には組み込んでいない。
+
+## 公式ジャケット（assets/jacket-*.jpg）
+NCT WISH公式リリースのジャケットアートワーク。レーベル（SM Entertainment／avex）が Apple Music 配信で使用している公式アートワークを取得（2026-11-06）。
+- jacket-handsup.jpg ― 『Hands Up』（NCT NEW TEAM プレデビューシングル、2023）。ミュージックのアートワーク、IG／TikTokのHands Up投稿画像。
+- jacket-wish.jpg ― 『WISH』（デビューシングル、2024）。写真アルバム「東京ドーム（2024）」。
+- jacket-songbird.jpg ― 『Songbird』（2024）。写真アルバム「活動の記録（2024〜2025）」。
+- jacket-steady.jpg ― 『Steady』（2024）。同上。
+- jacket-wishful.jpg ― 『WISHFUL』（2024）。同上。
+- jacket-poppop.jpg ― 『poppop』（2025）。同上。
+- jacket-color.jpg ― 『COLOR』（2025）。写真アルバム「COLORと、その先（2025〜2028）」。
+- jacket-wishlist.jpg ― 『WISHLIST』（2026）。同上。
+- jacket-ode.jpg ― 『Ode to Love』（2026）。同上。
 
 ## 風景・食べ物写真（Wikimedia Commons等のCCライセンス）
 タイトル画面の注記より転記：
