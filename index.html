@@ -412,7 +412,7 @@ svg{display:block}
 .pfk{background:#8b9bb4}
 .pfk-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.92)}
 .pfk-card{position:relative;margin-top:auto;background:#fff;color:var(--ink);padding:0 20px calc(20px + env(safe-area-inset-bottom));display:flex;flex-direction:column;align-items:center}
-.pfk-av{width:86px;height:86px;border-radius:32px;object-fit:cover;margin-top:-43px;border:3px solid #fff;background:#fff}
+.pfk-av{width:86px;height:86px;border-radius:32px;object-fit:cover;object-position:50% 20%;margin-top:-43px;border:3px solid #fff;background:#fff;position:relative;z-index:2}
 .pfk-nm{font-size:19px;font-weight:700;margin-top:9px}
 .pfk-st{font-size:13px;color:#666;margin-top:3px;text-align:center;line-height:1.5}
 .pfk-acts{display:flex;width:100%;border-top:1px solid #eee;margin-top:16px;padding-top:14px}
@@ -422,7 +422,9 @@ svg{display:block}
 .pfl .pfl-cov{height:300px;position:relative;flex:none}
 .pfl .pfl-cov img{width:100%;height:100%;object-fit:cover}
 .pfl-body{flex:1;background:#fff;display:flex;flex-direction:column;align-items:center;padding:0 20px calc(20px + env(safe-area-inset-bottom))}
-.pfl-av{width:92px;height:92px;border-radius:50%;object-fit:cover;margin-top:-46px;border:3.5px solid #fff}
+.pfl-av{width:92px;height:92px;border-radius:50%;object-fit:cover;object-position:50% 20%;margin-top:-46px;border:3.5px solid #fff;position:relative;z-index:2}
+/* v3 fix: nao's portrait photos carry the face in the upper third — keep it centred in every cover crop */
+img[src*="nao-age"],img[src*="av-nao"],img[src*="nao-profile"]{object-position:50% 22%}
 .pfl-nm{font-size:20px;font-weight:700;margin-top:8px}
 .pfl-st{font-size:13.5px;color:#555;margin-top:4px}
 .pfl-acts{display:flex;gap:38px;margin-top:22px}
@@ -437,7 +439,7 @@ svg{display:block}
 .sheet .sh-h button{position:absolute;right:10px;top:2px;font-size:17px;padding:4px 8px;color:#333}
 .sheet .sh-b{flex:1;overflow-y:auto;padding:6px 0}
 .sheet .sh-in{flex:none;display:flex;gap:9px;align-items:center;padding:9px 16px calc(11px + env(safe-area-inset-bottom));border-top:1px solid #f0f0f3}
-.sheet .sh-in img{width:34px;height:34px;border-radius:50%;object-fit:cover}
+.sh-in img{width:34px;height:34px;border-radius:50%;object-fit:cover;flex:none}
 .sheet .sh-in .fld{flex:1;border:1px solid #e3e3e8;border-radius:19px;padding:9px 14px;font-size:16px;color:#333;font-family:inherit}
 .sheet .sh-in .snd{font-size:14px;font-weight:700;color:#0095f6;padding:4px 2px}
 .cm-row{display:flex;gap:10px;padding:8px 16px;align-items:flex-start}
@@ -1274,7 +1276,7 @@ div[style*="overflow-y:auto"]{overscroll-behavior:contain}
 <button class="t-btn sub" id="t-ends">エンディングコレクション <span id="t-ends-n"></span></button>
 <div class="t-note">実在の人物・番組を題材にした創作フィクション（ファンメイド作品）です。会話やナオの結果は創作であり、史実の選抜結果とは異なる分岐を含みます。</div>
 <div class="t-note" style="font-size:9px;line-height:1.55;opacity:.72">追加写真の一部は Wikimedia Commons のCCライセンス写真などです（トッポッキ＝jetalone／CC BY 2.0、漢江の夜景＝d'n'c／CC BY-SA 2.0（カバー写真は別トリミング・反転の加工版）、東京ドーム＝ClarkSui／CC BY-SA 3.0、弘大の通り＝Minseong Kim／CC BY-SA 4.0、サムギョプサル＝revi／CC BY 2.0 KR、景福宮＝Kokiri／CC BY-SA 3.0、Nソウルタワー＝lumoplank／CC0、大阪城＝Martin Falbisoner／CC BY-SA 4.0（母のカバー写真は別トリミングの加工版）、広蔵市場のチヂミ＝Bo Park（米陸軍）／パブリックドメイン、パン屋のショーケース＝Steam Pipe Trunk Distribution Venue／CC BY 2.0、明洞の夜＝Christian Bolz／CC BY-SA 4.0）。BGM・効果音は端末内で合成したオリジナルです。</div>
-<div class="t-ver">マンネ編 v2</div>
+<div class="t-ver">マンネ編 v3</div>
 </div>
 </div>
 <!-- INTRO -->
@@ -1501,67 +1503,67 @@ const THREADS={
 /* steps: {d}日付 {s}システム {m}自分 {f,t}相手 {img,f,src,cap} {c:[{t,e,r:[[key,text]]}]} {msn} */
 const SCENES=[
 {id:"p0",thread:"rec",date:"4月6日(月)",start:16*60+30,title:"プロローグ ― 二つの入学（2015）",ig:0,tt:0,photo:0,
- memo:{t:"始まりの記録",b:"2008年5月25日、SHINeeがデビューした日に生まれた。物心ついた時から、家では5人の声が流れていて、私が真似するのはいつもジョンヒョンのパートだった。立ちたい場所が男の子のグループにしかなかったから、受けるオーディションは男子部門。嘘は会社と世間にだけ。家族の中では、本当のことを嘘にしない。それが我が家の約束。"},
+ memo:{t:"始まりの記録",b:"2008年5月25日、SHINeeがデビューした日に生まれた。小さい頃から、家ではいつも5人の歌が流れていて、私が真似するのはジョンヒョンのパートだった。立ちたい場所は、男の子のグループにしかなかった。だから、オーディションは男の子のほうを受けた。嘘をつくのは、会社と外の人だけ。家族の中では、本当のことを言う。それが、我が家の約束。"},
  steps:[
  {d:"2014年12月 ― オーディション（回想）"},
- {s:"日本の予選会場。ゼッケンを付けた年長さんが現れて、受付の空気が一度止まった。椅子に座ると、足が床に届かない"},
+ {s:"日本の予選会場。小さい子がゼッケンを付けて現れて、受付の空気が一度止まった。椅子に座ると、足が床に届かない"},
  {f:"mgr",t:"……本当に、6歳？ 喉、乾いてない？ ジュース持ってきてあげるから、順番までここで待ってて"},
- {m:"（可愛がられるのは、オーディションの時点でもう始まっていた。でも私は、可愛がられに来たんじゃない）"},
- {s:"歌唱審査。選曲はSHINeeの曲。当然みたいに、ジョンヒョンのパートを歌った。声は子どものもの。でも、怖がらずに最後まで歌い切る度胸だけは、年齢と噛み合っていなかった"},
+ {m:"（かわいがられるのは、もうはじまってた。でも、ちがう。私はうたうために来たの）"},
+ {s:"歌唱審査。選曲はSHINeeの曲。いつもみたいに、ジョンヒョンのパートを歌った。声は子どもの声。でも、怖がらずに最後まで歌い切ったところだけは、6歳らしくなかった"},
  {f:"mgr",t:"審査員の質問、技術の話より先に年齢の確認が二回も入ったそうだよ。……ソウルの最終でも、歌が耳に残ったって"},
  {d:"2015年4月6日（月）"},
  {s:"春。母と二人、ソウルへ引っ越した。父は日本で単身赴任。ソウル日本人学校の入学式の週に、もう一つの入学が始まった"},
  {f:"mom",t:"学校では戸籍どおりの女の子。放課後は、SMの最年少の男子練習生。二つの生活、どっちもあんたの本当だよ"},
- {m:"（入所は6歳10ヶ月。あとから知ったけど、両方の業界を通しても最年少クラスの入所だったらしい）"},
+ {m:"（6歳と10ヶ月で、入所。あとから聞いたけど、こんなに小さい入所は、めずらしいんだって）"},
  {s:"キッズクラスのレッスン室。周りは中高生ばかりで、鏡の列のいちばん端が定位置になった。レッスンバッグは誰かの手に移り、休憩のお菓子は真っ先に回ってくる"},
  {f:"mgr",t:"契約の条件、覚えてるね。寮には入れない。医療は提携先で個別に。知っている大人は、数えるほどだけ。それが、あんたを守る設計だよ"},
  {c:[
-  {t:"「分かってる。私は歌いに来た」と言い切る",e:{eval:4,bond:1},r:[["mgr","……6歳の言うことじゃないね。分かった、その目を忘れないで"]]},
+  {t:"「うたうの。わたし、うたうために来た」と言い切る",e:{eval:4,bond:1},r:[["mgr","……6歳の言うことじゃないね。分かった、その目を忘れないで"]]},
   {t:"「みんなに可愛がられてるから大丈夫」と笑う",e:{bond:3},r:[["mgr","はは、それも本当だ。この建物で、あんたはもうマスコットだよ"]]},
   {t:"「バレたらどうなるの」と小声で聞く",e:{crisis:2,bond:1},r:[["mgr","バレないための設計だよ。……怖がるより先に、歌おうか"]]}
  ]},
  {s:"廊下では、ルーキーズの先輩たちがショーの準備で行き交う。6歳の定位置は、その全部を下から見上げる場所だった"},
- {m:"（憧れの人は、まだ遠い。でも同じ建物の空気を吸ってる。それだけで、最初の春は十分に眩しかった）"}
+ {m:"（あこがれの人は、まだ遠い。でも、同じ建物の中にいる。それだけで、まぶしくて、うれしかった）"}
  ]},
 {id:"p1",thread:"rec",date:"10月2日(金)",start:19*60+10,title:"第1章 ― 建物の赤ちゃん（2015）",ig:0,tt:0,photo:1,
- memo:{t:"赤ちゃん扱いと、盾",b:"可愛がられることは、隠す側にとって追い風でもあった。誰も「疑う」目で見ない。庇護対象は観察対象にならない。着替えや距離感の遠慮も、年相応の甘えとして処理される。危ないのは逆に、距離の近さのほう。抱っこ、おんぶ、肩車。子ども扱いゆえの無防備なスキンシップだけが、この時期の冷や汗ポイントだった。"},
+ memo:{t:"赤ちゃん扱いと、盾",b:"かわいがられることは、私には追い風だった。みんな、私を「疑う」目では見ない。着替えや距離のことも、「小さいから」で済んでしまう。危ないのは、逆に近さのほう。抱っこ、おんぶ、肩車。子ども扱いだから平気でされるスキンシップだけが、この頃の冷や汗だった。"},
  steps:[
  {d:"2015年10月2日（金）"},
  {s:"入所から半年。キッズクラスではすっかり古株……のはずなのに、実態は相変わらず、みんなの赤ちゃんだった"},
  {s:"レッスンで振りを間違えても、怒られ方は一段柔らかい。その代わり、できた時の褒められ方は大げさ。荷物は持たせてもらえない。夕方眠くなれば、待合のソファの端が当然みたいに空いた"},
- {m:"（制度は冷たいけど、人は甘い。月末の確認で名前が残るかどうかが全て、なのに「この場所が居心地いい」と先に感じてしまう）"},
+ {m:"（決まりは厳しいのに、人はみんな甘い。月末に名前が残るかが大事なはずなのに、先に「ここ、好き」って思ってしまう）"},
  {f:"mgr",t:"今日はレッスン終わり。その足で、お母さんと約束の場所、分かってるね"},
  {d:"2015年10月 ― COEXの小さい劇場"},
  {s:"ジョンヒョンの初のアコースティックなソロコンサート『THE STORY by JONGHYUN』。母に手を引かれて、7歳になったばかりの私が客席にいた"},
  {s:"大きな会場じゃない。声が近い公演だった。家で繰り返し聞いたあの声が、楽器の音と一緒に、子どもの体に直接届いた"},
  {f:"mom",t:"……すごかったね。あんたの目、ずっとキラキラしてた"},
  {c:[
-  {t:"「私も、あの場所に立つ」と宣言する",e:{eval:3,bond:2},r:[["mom","うん。……母さんは、その言い方を待ってた気がする"]]},
+  {t:"「私も、あの場所に立つ」とまっすぐ言う",e:{eval:3,bond:2},r:[["mom","うん。……母さんは、その言い方を待ってた気がする"]]},
   {t:"言葉にできず、母の手を強く握る",e:{bond:3},r:[["mom","大丈夫。言葉は、あとからでいいよ"]]},
   {t:"「ジョンヒョンみたいになりたい」と繰り返す",e:{eval:2,crisis:1},r:[["mom","なりたい、じゃなくて、なるんだよ。……帰ろっか"]]}
  ]},
- {s:"あの夜、「この人のいる場所まで行きたい」という気持ちは、憧れから決意の側へ押し出された"},
+ {s:"あの夜、「あの人のいる場所まで行きたい」という気持ちは、ただの憧れじゃなくなった"},
  {s:"ちなみにこの年、建物の中でジョンヒョンとまともに話したことは一度もない。デビュー組とキッズクラスは、フロアも時間帯も別。廊下で集団挨拶の列から見かける、その距離が全部だった"},
- {m:"（声は、コンサート会場で聞くのが一番近い。それでよかった。遠いから、憧れは憧れのまま、私を運んでくれる）"},
+ {m:"（声は、コンサートで聞くのが一番近い。それでいい。遠いから、あこがれはあこがれのまま、私を連れていってくれる）"},
  {d:"2015年12月"},
  {s:"年末、スタッフの間で小さな噂が流れた。「日本人の男の子が、今年のオーディションに受かったらしい」――ユウシの合格だった。二人の「どちらが先か」の物語は、入所と同じ2015年の中に、ちゃんと種が蒔かれていた"}
  ]},
 {id:"p2",thread:"rec",date:"8月25日(木)",start:15*60+40,title:"第2章 ― 2015年組（2016）",ig:0,tt:0,photo:1,
- memo:{t:"決着のつかない話",b:"入所は私が2015年4月。合格はユウシも2015年。担当者は結局、順番を決めなかった。「二人とも2015年組」。この一言が、8年続く論争の始まりだった。序列では決着がつかない。実力では完全に兄。世話の焼き方では家族みたいなもの。その三つが同居したまま、私たちは始まった。"},
+ memo:{t:"決着のつかない話",b:"入所は私が2015年4月。合格はユウシも2015年。大人たちは、結局どっちが先か決めなかった。「二人とも2015年組」。この一言が、8年続く言い合いの始まりだった。順番では決着がつかない。実力では、文句なしにユウシが上。世話の焼き方では、家族みたい。その三つが一緒になったまま、私たちは始まった。"},
  steps:[
  {d:"2016年5月25日（水）"},
- {s:"8歳の誕生日は、SHINeeのデビュー8周年と重なった。この家では毎年そうだ。誕生日の食卓には、周年のお祝いも一緒に乗る。しかも前日の5月24日には、ジョンヒョンのソロアルバム『She Is』が出ていた。誕生日プレゼントは、母の中で最初から一つしかなかったはずだ"},
+ {s:"8歳の誕生日は、SHINeeのデビュー8周年と重なった。この家では毎年そうだ。誕生日の食卓には、周年のお祝いも一緒に乗る。前日の5月24日には、ジョンヒョンのソロアルバム『She Is』が出ていた。母からの誕生日プレゼントは、最初からそれ一つに決まっていたはずだ"},
  {d:"2016年夏 ― 集中レッスン"},
  {s:"夏休み、噂の日本人の男の子が来た。ユウシ、12歳。オーディション合格は2015年。日本に住みながら、休みのたびに渡韓してレッスンを受ける生活をもう1年続けている子だった"},
  {s:"ダンスの実力は初日から別格。紹介の場で、担当者が私を指して言った。「この子は去年入った子。あんたより先にここにいる」"},
  {f:"yushi",t:"……僕、受かったの、去年なんですけど"},
  {s:"間があった。入所は私が2015年4月。合格はユウシも2015年。どちらが先かは、数え方で変わる。担当者は面倒になったのか、その場を笑いで流した。「まあ、二人とも2015年組だ」"},
  {f:"yushi",t:"……まあ、いいけど"},
- {m:"（ユウシの世話は、初日から始まっていた。韓国語の指示に固まる私の隣で、先生の言葉を短い日本語に直して置いていく。休憩の時は、自分の分の水を先に渡す。言葉は少ない。「大丈夫」「次はこっち」。実務の言葉だけ）"},
+ {m:"（ユウシの世話は、初日からだった。韓国語が分からなくて固まる私の隣で、先生の言葉を短い日本語に直してくれる。休憩の時は、自分の水を先に渡す。言うことは少ない。「大丈夫」「次はこっち」。それだけ）"},
  {d:"2016年8月 ― ソンチャン入所"},
  {s:"もう一人、新しい男の子が入ってきた。ソンチャン、2001年生まれの14歳。入所は私より1年4ヶ月遅い、初めてのはっきりした後輩"},
  {f:"sungchan",t:"よろしく。……あれ、君が先輩？ 名簿、いちばん端だったけど"},
- {m:"「順番は名簿のとおり。私が先輩」"},
+ {m:"「順番は名簿のとおりだよ。私が先輩」"},
  {f:"sungchan",t:"はは、分かった。……でも帰り、眠そうだったら背負うけど、それは別な"},
  {s:"彼は律儀に挨拶をする年上の後輩で、レッスンの帰り、眠い私をおんぶで運ぶ人になった。先輩扱いと赤ちゃん扱いが、同じ人間の中で矛盾なく同居していた"},
  {d:"2016年8月25日（木）"},
@@ -1574,10 +1576,10 @@ const SCENES=[
  {d:"2016年12月 ― 年末評価"},
  {s:"その年の最後の評価で、私は自由曲にジョンヒョンの『하루의 끝（End of a Day）』を選んだ。8歳が大人の慰めの歌を歌うのは、本来は似合わないはずだった"},
  {s:"でも審査側の大人たちは、途中でメモを取る手を止めた。評価シートの隅に、担当者の字で小さく書き添えられた。「選曲に本人の意志が強い。扱いは丁寧に」"},
- {m:"（この一行が、1年後にあの冬が来た時、私をそっと休ませる判断の伏線になるなんて、この時は知らなかった）"}
+ {m:"（この一行が、1年後のあの冬、私を休ませる理由になるなんて、この時は知らなかった）"}
  ]},
 {id:"p3",thread:"rec",date:"12月18日(月)",start:20*60+5,title:"第3章 ― あの冬（2017）",ig:0,tt:0,photo:1,
- memo:{t:"2017年12月のこと",b:"詳しくは書かない。書けるようになるまで、ずっとかかった。歌う理由の真ん中にいた人がいなくなって、それでも名簿の名前は2018年のリストに残った。歌うことをやめるという選択肢だけが、私の中には最初から存在しなかったみたいに。先生たちは理由を聞かずに、ジョンヒョンの曲を選ぶ私を受け入れてくれた。それが、この建物の優しさだった。"},
+ memo:{t:"2017年12月のこと",b:"詳しくは書かない。書けるようになるまで、ずっとかかった。歌う理由の真ん中にいた人がいなくなった。それでも、名簿の名前は2018年のリストに残った。歌うことをやめる、という考えは、私の中には最初からなかったみたいだ。先生たちは理由を聞かずに、ジョンヒョンの曲を選ぶ私を受け入れてくれた。それが、この建物の優しさだった。"},
  steps:[
  {d:"2017年5月 ― 月末評価"},
  {s:"4月24日、ジョンヒョンの『Story Op.2』が発売された。タイトル曲『Lonely』は、慰め合うみたいな静かなデュエット。その翌月の月末評価で、私は一人で歌うには無謀なその曲を、自由曲に選んだ"},
@@ -1586,7 +1588,7 @@ const SCENES=[
  {d:"2017年5月25日（木）"},
  {s:"9歳の誕生日と、SHINeeの9周年。二つのお祝いが一つの食卓に乗った。5月末からはジョンヒョンのコンサート『The Letter』。母と二人で観に行くのが、もう年中行事のようになっていた"},
  {d:"2017年10月"},
- {s:"ハンソルが会社を辞めた。挨拶もなく、ある週から来なくなる、あの消え方。知っている顔が消えるたび、評価シートの重さを子どもなりに理解していった"},
+ {s:"ハンソルが会社を辞めた。挨拶もなく、ある週から来なくなる、あの消え方。知っている顔が消えるたび、評価シートの怖さを、少しずつ分かっていった"},
  {d:"2017年12月9日・10日"},
  {s:"SKオリンピックハンドボール競技場で、ジョンヒョンのコンサート『INSPIRED』。母と私は、その客席にいた。いつもの年中行事のはずだった"},
  {d:"2017年12月18日（月）"},
@@ -1602,7 +1604,7 @@ const SCENES=[
  {m:"（2017年が終わる。歌う理由の真ん中にいた人は、もういない。それでもレッスン室の鏡の前には、いちばん小さい姿が立ち続けた）"}
  ]},
 {id:"p4",thread:"rec",date:"5月25日(金)",start:17*60+20,title:"第4章 ― 10歳と、10周年（2018）",ig:0,tt:0,photo:2,
- memo:{t:"対等に扱う人",b:"シオンは、なおを子ども扱いだけしない、最初の年上だった。評価シートの読み方を教え、月末評価の順番の意味を渡し、9歳を「一人の練習生」の席に戻す人。2018年のあの出会いが、のちに「リーダーと、最古参のマンネ」という並びで同じチームに立つ二人の、最初のページだった。彼の溺愛は最初から、感情じゃなく設計の形をしていた。"},
+ memo:{t:"対等に扱う人",b:"シオンは、私を子ども扱いだけしない、最初の年上だった。評価シートの読み方を教えてくれて、月末評価の順番の意味も教えてくれた。9歳の私を、「一人の練習生」の席に戻してくれる人。2018年のあの出会いが、のちに「リーダーと、最古参のマンネ」として同じチームに立つ二人の、最初のページになった。シオンの優しさは、最初から、言葉じゃなく段取りの形をしていた。"},
  steps:[
  {d:"2018年1月23日"},
  {s:"ジョンヒョンの最後のアルバム『Poet | Artist』が発売された。タイトル曲『Shinin'』は明るい曲だった。その夜、母と二人で全曲を聞いた。歌声はちゃんとそこにあるのに、歌っている人はもういない。その矛盾を、9歳はまだ言葉にできなかった"},
@@ -1611,31 +1613,31 @@ const SCENES=[
  {s:"ユウシが本格的にソウルへ移住してきた。「休みに来る人」が「毎日いる人」になった。序列は相変わらず決着なし。でも韓国語で困ったらまずユウシ、という相手が常駐したのは大きかった"},
  {s:"同じ年、木浦からシオンが入所してきた。2002年生まれ、16歳。歌で目立つ子。私より6歳年上で、入所は3年遅い"},
  {f:"sion",t:"……よろしく。順番は聞いてる。あんたが3年先輩で、俺が年上。ややこしいけど、そのまま受け取る"},
- {m:"（驚きも、子ども扱いの笑いもなかった。情報を処理するみたいに、静かに状況を受け取る挨拶だった）"},
+ {m:"（驚きも、子ども扱いの笑いもなかった。ただ静かに、全部を受け取るみたいな挨拶だった）"},
  {f:"sion",t:"評価シート、読み方を知らないと損する。月末評価は、順番と講評の置き方で、先生がどこを見てるか分かる。……教えるよ"},
  {c:[
-  {t:"「先輩として、頼りにしていく」と返す",e:{bond:3,eval:1},r:[["sion","……あんたは、対等に話せる側の人間だな。それでいい"]]},
+  {t:"「頼りにしていくね。先輩として」と返す",e:{bond:3,eval:1},r:[["sion","……あんたは、対等に話せる側の人間だな。それでいい"]]},
   {t:"「なんで子ども扱いしないの」と聞く",e:{bond:2},r:[["sion","扱いは、実力で決めるもんだろ。……9歳でも、4年目なら4年目だ"]]},
-  {t:"「序列は私が上」と先に釘を刺す",e:{eval:2,bond:1},r:[["sion","分かってる。……その言い方、嫌いじゃない"]]}
+  {t:"「順番は私が上だよ」と先に言っておく",e:{eval:2,bond:1},r:[["sion","分かってる。……その言い方、嫌いじゃない"]]}
  ]},
  {d:"2018年5月25日（金）"},
  {s:"10歳の誕生日と、SHINeeのデビュー10周年。その3日後、SHINeeは4人で『The Story of Light』を出してカムバックした。初めての、ジョンヒョンのいないカムバック。家で『Good Evening』を聞く夜、母は泣かなかった。「続けてくれてる」というほうを噛みしめるみたいに聞いていた"},
  {s:"秋の月末評価で、小さな事件があった。ダンスの講評が、初めて「体格の不利」の一言で終わらなかった。音の取り方と、止まる位置の正確さが、初めてプラスの言葉で書かれた。4年近く引きずってきた「真ん中より下」が、ようやく「真ん中」に届いた"},
  {c:[
-  {t:"「歌だけの子」からの卒業を静かに噛みしめる",e:{eval:4},r:[["mgr","劇的じゃないけど、確かな一歩だよ。……よく続けてる"]]},
+  {t:"「歌だけの子」じゃなくなったことを、静かに噛みしめる",e:{eval:4},r:[["mgr","劇的じゃないけど、確かな一歩だよ。……よく続けてる"]]},
   {t:"ユウシに報告して、反応を見る",e:{bond:3},r:[["yushi","……ふーん。まあ、悪くないんじゃない"]]},
   {t:"シオンに「読み方、合ってた」と礼を言う",e:{bond:2,eval:2},r:[["sion","礼はいらない。……次は、真ん中より上だな"]]}
  ]},
  {s:"秋から、小さなノートに言葉の断片を書くようになった。歌詞というには幼い、短い行のメモ。ジョンヒョンが「書く人」でもあったことを知った10歳の、真似の始まりだった"}
  ]},
 {id:"p5",thread:"rec",date:"10月12日(月)",start:16*60+50,title:"第5章 ― 歌の相方と、先に行く後輩（2019〜2020）",ig:0,tt:0,photo:2,
- memo:{t:"最短と最長",b:"ジゼルの練習生期間は11ヶ月。私の在籍は5年7ヶ月。同じ建物の中に、時間の流れ方が正反対の二人がいた。評価の講評「デビューの順番は、実力の順番じゃないから」。励ましなのか現実なのか、12歳には判別がつかなかった。ただ、その言葉はやけに長く耳に残った。長く残るということは、追い越される回数も一番多いということだった。"},
+ memo:{t:"最短と最長",b:"ジゼルの練習生期間は11ヶ月。私の在籍は5年7ヶ月。同じ建物の中に、時間の流れ方が正反対の二人がいた。評価の講評、「デビューの順番は、実力の順番じゃないから」。励ましなのか現実なのか、12歳の私には分からなかった。ただ、その言葉はやけに長く耳に残った。長くいるということは、追い越される回数も一番多いということだった。"},
  steps:[
  {d:"2019年 ― 年上の後輩たち"},
- {s:"2019年は新入りが多い年だった。ウォンビン、スンハン、ショウヘイ。全員、私より年上。全員、入所は4年以上遅い。気づけば私は、在籍年数だけなら建物でも指折りの古株。11歳、小学5年生。見た目はまだ「みんなの赤ちゃん」のままなのに、名簿の上では大ベテランという、ねじれが最大化していく年だった"},
+ {s:"2019年は新入りが多い年だった。ウォンビン、スンハン、ショウヘイ。全員、私より年上。全員、入所は4年以上遅い。気づけば私は、在籍年数だけなら建物でも指折りの古株。11歳、小学5年生。見た目はまだ「みんなの赤ちゃん」のままなのに、名簿の上では大ベテランという、ねじれが一番大きくなっていく年だった"},
  {s:"一番大きな出会いは、ボーカルクラスだった。ユ・スンオン。2004年生まれ、入所時点で15歳。歌の技術では、明らかに私より上"},
  {f:"seungon",t:"君が例の、4年先輩の10歳……11歳か。歌、聞かせてもらった。高い声のまま大人の曲を歌おうとするの、面白いね"},
- {m:"「技術は、教えて。……代わりに、会社の生き残り方は私が教える」"},
+ {m:"「技術は、教えて。……代わりに、ここのことは私が教える。4年先輩だから」"},
  {f:"seungon",t:"はは、取引成立。……年上の後輩と、年下の先輩か。変な組み合わせだ"},
  {s:"歌の技術はスンオンが教える。評価の空気の読み方、先生ごとの癖は、4年先輩の私が知っていた。お互いに教え合うしかない組み合わせ。彼は私の歌を、赤ちゃん扱いでも同情でもなく、実力の物差しだけで見た。それが私にとって、初めての「対等な評価」に近かった"},
  {s:"年の中頃の月末評価で、ボーカルの上位リストに、スンオンと私の名前が並んだ。彼への講評は「技術は完成の域。あとは個性」。私へは「声が変わらないことが、この先どう転ぶか」。ケアチームの中では、思春期の数年間をどう設計するかという話が、静かに始まっていた"},
@@ -2410,10 +2412,10 @@ function renderHome(){const _hw=document.querySelector("#v-home .wall");if(_hw)_
  $("#hw-photo-cap").textContent=S.ended?"NCT WISH ― 物語は完結、7人は続く":S.scene>=14?"NCT WISH ― 7人の日々":S.scene>=12?"東京ドーム ― デビューの日 (2024)":S.scene>=7?"LASTART ― 最後のNCTをかけた夏 (2023)":"ソウル ― 二つの生活の始まり (2015)";
  const curAppName=sc?THREADS[sc.thread].app:null;
  const _byId={};APPS.forEach(a=>_byId[a.id]=a);
- $("#home-apps").innerHTML=appOrder().map(id=>{const a=_byId[id];let b="";if(sc&&((a.id==="kakao"&&curAppName==="kakao")||(a.id==="line"&&curAppName==="line")))b="1";if(a.id==="notes"){const _nb=S.memos.length-(S.nseen||0);if(_nb>0)b=_nb;}return appHTML(a,b);}).join("");
+ $("#home-apps").innerHTML=appOrder().filter(id=>id!=="ig"||igOpen()).map(id=>{const a=_byId[id];let b="";if(sc&&((a.id==="kakao"&&curAppName==="kakao")||(a.id==="line"&&curAppName==="line")))b="1";if(a.id==="notes"){const _nb=S.memos.length-(S.nseen||0);if(_nb>0)b=_nb;}return appHTML(a,b);}).join("");
  $("#home-dock").innerHTML=[APPS[9],APPS[0],APPS[1],APPS[7]].map(a=>appHTML(a,"")).join("");
  document.querySelectorAll("[data-app]").forEach(b=>b.addEventListener("click",()=>appTap(b.dataset.app)));}
-function openApp(id){if(id==="kakao"){curApp="kakao";renderList("kakao");show("list");}else if(id==="line"){curApp="line";renderList("line");show("list");}
+function openApp(id){if(id==="ig"&&!igOpen()){toast("Instagramは、物語が2023年（選抜編）まで進むと開けるよ");return;}if(id==="kakao"){curApp="kakao";renderList("kakao");show("list");}else if(id==="line"){curApp="line";renderList("line");show("list");}
  else if(id==="tel"){show("tel");}else{show(id);}}
 /* ===== v31: home edit mode (iOS 16 long-press jiggle + drag reorder, persisted as S.homeOrd) ===== */
 let homeEdit=false,_lpT=null,_lpX=0,_lpY=0,_drag=null;
@@ -2902,6 +2904,8 @@ const IG_DATES={1:"2023年7月19日",2:"2023年10月8日",3:"2024年2月21日"};
 const CM_COLS=["#d95f7b","#3a7bd5","#5aa469","#7b61c9","#e08a3c","#4a90a4","#c94f7c","#546e7a"];
 function cmAv(name){const c=CM_COLS[[...name].reduce((a,ch)=>a+ch.charCodeAt(0),0)%CM_COLS.length];return `<span class="cav" style="background:${c}">${esc(name.slice(0,1).toUpperCase())}</span>`;}
 function igPosts(){return S.ended?IG_POSTS.slice():IG_POSTS.slice(0,Math.min(S.ig,1));}
+/* v3 fix: Instagram (the LASTART-era fan layer) does not exist in the trainee era — the whole app stays hidden/locked until the 2023 selection arc */
+function igOpen(){return !!S&&(S.ended||S.scene>=7);}
 /* v52: nao's own posts from the IG create flow (session-only) ride on top of the official feed */
 let igMine=[],igMineSeq=9901;
 function igAllPosts(){return igMine.concat(igPosts());}
@@ -3053,7 +3057,7 @@ function openIgComments(pid){const p=igList.find(x=>x.id===pid)||IG_POSTS.find(x
  const send=()=>{const inp=$("#cm-in");const v=inp.value.trim();if(!v)return;(S.igc[pid]=S.igc[pid]||[]).push(v);save();const b=$("#ovl .sh-b");b.insertAdjacentHTML("beforeend",uRow(v));bindCh(b.lastElementChild.querySelector("[data-ch]"));inp.value="";b.scrollTop=b.scrollHeight;const pcl=document.querySelector(`#igp-${pid} .pcl`);if(pcl)pcl.textContent=`コメント${p.cm.length+S.igc[pid].length}件をすべて見る`;};
  $("#cm-snd").addEventListener("click",send);$("#cm-in").addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.isComposing&&e.keyCode!==229)send();});}
 const DM_FANS=[["wish_stan","『LASTART』の投稿をシェアしました","2時間",1],["teaser_loop","個人ティザー、もう100回は見た","5時間",0],["saku_bread","サクヤのティザー見た？？","1日",0]];
-function openDM(){const un=S.ended?"nctwish_official":"sm_nctuniverse";
+function openDM(){if(!igOpen()){toast("Instagramは、物語が2023年（選抜編）まで進むと開けるよ");return;}const un=S.ended?"nctwish_official":"sm_nctuniverse";
  const notes=[["wish_stan","初回リアタイした"],["teaser_loop","ティザー無限ループ中"],["saku_bread","パン買ってきた"]];
  ovl(`<div class="ovl-full ovl-white"><div class="dm-head"><button class="back" data-close>‹</button><span class="un">nao</span><button data-igdmnew style="display:flex">${I_PLUSBOX}</button></div>
  <div class="dm-notes">${notes.map(nt=>`<span class="dm-note"><span class="nb2">${esc(nt[1])}</span>${cmAv(nt[0])}<span>${esc(nt[0])}</span></span>`).join("")}</div>
@@ -3066,10 +3070,10 @@ function openDM(){const un=S.ended?"nctwish_official":"sm_nctuniverse";
  const dn=$("#ovl [data-igdmnew]");if(dn)dn.addEventListener("click",openIGCreate);
  const _r2=$("#dm-row2");if(_r2)_r2.addEventListener("click",()=>toast("公式アカウントにはDMを送れないよ"));
  document.querySelectorAll("#ovl [data-dmfan]").forEach(b=>b.addEventListener("click",()=>openFanDM(b.dataset.dmfan)));}
-function openFanDM(name){dmRead.add(name);const _bd=document.querySelector(".ig-bdg");if(_bd){const _un=DM_FANS.filter(f=>f[3]&&!dmRead.has(f[0])).length;if(_un)_bd.textContent=_un;else _bd.remove();}
+function openFanDM(name){if(!igOpen()){toast("Instagramは、物語が2023年（選抜編）まで進むと開けるよ");return;}dmRead.add(name);const _bd=document.querySelector(".ig-bdg");if(_bd){const _un=DM_FANS.filter(f=>f[3]&&!dmRead.has(f[0])).length;if(_un)_bd.textContent=_un;else _bd.remove();}
  const p=IG_POSTS[0];
  ovl(`<div class="ovl-full ovl-white"><div class="dm-head"><button class="back" id="dmfan-back">‹</button><span class="un" style="font-size:15px">${esc(name)}</span><span style="width:30px"></span></div>
- <div class="abody" id="dmfan-body" style="flex:1"><div style="display:flex;padding:12px 14px 2px"><span style="background:#f0f0f3;border-radius:16px;padding:3px;max-width:62%"><img src="${p.img}" style="width:100%;border-radius:13px;display:block" alt=""><span style="display:block;padding:7px 9px;font-size:12px;color:#333">${esc(p.user)} の投稿をシェアしました</span></span></div>
+ <div class="abody" id="dmfan-body" style="flex:1"><div style="display:flex;padding:12px 14px 2px"><span style="background:#f0f0f3;border-radius:16px;padding:3px;max-width:62%"><img src="${p.img}" style="width:100%;height:auto;border-radius:13px;display:block" alt=""><span style="display:block;padding:7px 9px;font-size:12px;color:#333">${esc(p.user)} の投稿をシェアしました</span></span></div>
  <div class="locknote">ファン同士のDMだよ。ここでのやりとりは物語には影響しないよ。</div></div>
  <div class="sh-in" style="border-top:1px solid #f0f0f3"><img src="assets/av-nao.jpg" alt=""><input class="fld" id="dmfan-in" placeholder="メッセージ…"><button class="snd" id="dmfan-snd">送信</button></div></div>`);
  $("#dmfan-back").addEventListener("click",openDM);
@@ -3085,10 +3089,10 @@ function ttSyncPlus(){document.querySelectorAll("#tt-feed .tt-avw").forEach(a=>{
 let ttList=[];
 function renderTT(){
  const list0=TT_POSTS.filter(ttVisible);
- const list=list0.length?list0:[TT_POSTS[0]];
+ const list=list0;
  ttList=list;
  const au=$("#au-handsup");
- $("#tt-feed").innerHTML=list.map((p,i)=>{const gi=TT_POSTS.indexOf(p),cmN=(p.likes/37|0)+((S.ttc[gi]||[]).length),bkN=(p.likes/53|0),lk=S.ttl.includes(gi),bk=S.ttb.includes(gi);return `<div class="tt-item" data-tti="${i}">${p.v?`<video src="${p.v}" poster="${p.img||""}" muted loop playsinline preload="none"></video><div class="tt-paused" style="display:none">${T_PAUSE}</div>`:`<img loading="lazy" decoding="async" src="${p.img}" class="${i===0?"kenburns":""}">`}<div class="tt-shade"></div>
+ $("#tt-feed").innerHTML=list.length?list.map((p,i)=>{const gi=TT_POSTS.indexOf(p),cmN=(p.likes/37|0)+((S.ttc[gi]||[]).length),bkN=(p.likes/53|0),lk=S.ttl.includes(gi),bk=S.ttb.includes(gi);return `<div class="tt-item" data-tti="${i}">${p.v?`<video src="${p.v}" poster="${p.img||""}" muted loop playsinline preload="none"></video><div class="tt-paused" style="display:none">${T_PAUSE}</div>`:`<img loading="lazy" decoding="async" src="${p.img}" class="${i===0?"kenburns":""}">`}<div class="tt-shade"></div>
  <div class="tt-top"><button class="tt-live" data-ttlive="${i}">LIVE</button><span>フォロー中</span><span class="on">おすすめ</span><button class="tt-srch" data-ttsearch>${T_SEARCH}</button></div>
  <div class="tt-side"><span class="si"><span class="tt-avw"><img src="${CAST[p.who].av}" alt="" data-ttav="${i}">${S.ttf?"":`<span class="tt-plus" data-ttplus="${i}">+</span>`}</span></span>
  <button class="si" data-ttlike="${i}"${lk?' data-on="1"':""} style="color:${lk?"#fe2c55":"#fff"}">${T_HEART}<span class="cnt" data-ttn="${i}">${fmtN(p.likes+(lk?1:0))}</span></button>
@@ -3099,7 +3103,7 @@ function renderTT(){
  <div class="tt-info"><div class="tu">${esc(p.user)}</div><div class="tc">${esc(p.cap)}</div><div class="tt-music"><span class="tn-ic">${I_NOTE}</span><span class="mq">${esc(p.song)}　・　${esc(p.song)}　・　</span></div>
  ${!p.v&&p.song.includes("Hands Up")?`<button class="bigbtn" data-play="1" style="width:auto;padding:9px 16px;margin-top:9px;background:#fe2c55">▶ 公式プレビューを再生</button>`:""}</div>
  ${p.v?`<button class="tt-vol" data-ttvol="${i}">${ttSound?T_VOL_ON:T_VOL_OFF}</button>`:""}
- <div class="tt-prog" id="tt-prog-${i}"></div></div>`;}).join("");
+ <div class="tt-prog" id="tt-prog-${i}"></div></div>`;}).join(""):'<div style="height:100%;min-height:300px;display:flex;align-items:center;justify-content:center;color:#999;font-size:13.5px;padding:0 34px;text-align:center;line-height:1.9">まだ動画がないよ<br>物語が2023年（選抜編）まで進むと、公式アカウントの投稿が届くよ</div>';
  document.querySelectorAll("[data-ttlike]").forEach(el=>el.addEventListener("click",ev=>{ev.stopPropagation();const i=+el.dataset.ttlike;const n=document.querySelector(`[data-ttn="${i}"]`);const post=list[i];const gi=TT_POSTS.indexOf(post);const on=el.dataset.on==="1";el.dataset.on=on?"":"1";el.style.color=on?"#fff":"#fe2c55";n.textContent=fmtN(post.likes+(on?0:1));const ix=S.ttl.indexOf(gi);if(on){if(ix>=0)S.ttl.splice(ix,1);}else{S.ttl.push(gi);sfx("like");}save();}));
  document.querySelectorAll("[data-ttbk]").forEach(el=>el.addEventListener("click",ev=>{ev.stopPropagation();const i=+el.dataset.ttbk;const n=document.querySelector(`[data-ttbn="${i}"]`);const post=list[i];const gi=TT_POSTS.indexOf(post);const on=el.dataset.on==="1";el.dataset.on=on?"":"1";el.style.color=on?"#fff":"#fac400";n.textContent=fmtN((post.likes/53|0)+(on?0:1));const ix=S.ttb.indexOf(gi);if(on){if(ix>=0)S.ttb.splice(ix,1);}else{S.ttb.push(gi);toast("お気に入りに追加したよ");}save();}));
  document.querySelectorAll("[data-ttav]").forEach(el=>el.addEventListener("click",ev=>{ev.stopPropagation();openTTProfile();}));
@@ -3406,8 +3410,8 @@ $("#homebar").addEventListener("click",()=>{if(CUR==="home"&&homeEdit){exitEdit(
 let ttInboxSeen=false;
 function ttInboxRows(){const un=S.ended?"nctwish_official":"sm_nctuniverse";const rows=[];
  TT_POSTS.filter(ttVisible).slice(1).forEach((p,i)=>{rows.push({img:p.img,t:`<b>${un}</b> が新しい動画を投稿しました`,s:p.cap,time:(i+1)+"時間前",gi:TT_POSTS.indexOf(p),un:1});});
- if(S.scene>=1||S.ended)rows.push({img:"assets/stage.jpg",t:`<b>${un}</b> がLIVEを開始しました`,s:"タップでLIVEルームへ",live:1,time:"2時間前",un:1});
- if(S.scene>=3||S.ended)rows.push({av:"wish_stan",t:"<b>wish_stan</b> さんがあなたをフォローしました",s:"",time:"1日前",un:0});
+ if(S.scene>=7||S.ended)rows.push({img:"assets/stage.jpg",t:`<b>${un}</b> がLIVEを開始しました`,s:"タップでLIVEルームへ",live:1,time:"2時間前",un:1});
+ if(S.scene>=12||S.ended)rows.push({av:"wish_stan",t:"<b>wish_stan</b> さんがあなたをフォローしました",s:"",time:"1日前",un:0});
  rows.push({sys:1,t:"<b>TikTok</b> からのお知らせ",s:"コミュニティガイドラインの更新について",time:"3日前",un:0});
  return rows;}
 function ttInboxBadge(){const b=$("#tt-inbox-btn");if(!b)return;let bd=b.querySelector(".ttib-badge");const n=ttInboxRows().filter(r=>r.un).length;
@@ -3419,8 +3423,8 @@ function openTTInbox(){ttInboxSeen=true;ttInboxBadge();
  ovl(`<div class="ovl-full ovl-white"><div class="dm-head"><button class="back" data-close>‹</button><span class="un" style="flex:1;text-align:center">受信箱</span><button data-deco style="display:flex">${IC_SEARCH}</button></div>
  <div class="abody" style="flex:1;padding-top:2px"><div class="fr-sec"><span>通知</span></div>
  ${rows.map(rowH).join("")}
- <div class="fr-sec"><span>メッセージ</span></div>
- ${DM_FANS.map(f=>`<button class="ttib-row" data-deco>${cmAv(f[0])}<span class="tt"><span class="tn"><span>${esc(f[0])}</span><time>${f[2]}</time></span><span class="tp">${esc(f[1])}</span></span></button>`).join("")}
+ ${(S.ended||S.scene>=7)?'<div class="fr-sec"><span>メッセージ</span></div>':""}
+ ${(S.ended||S.scene>=7)?DM_FANS.map(f=>`<button class="ttib-row" data-deco>${cmAv(f[0])}<span class="tt"><span class="tn"><span>${esc(f[0])}</span><time>${f[2]}</time></span><span class="tp">${esc(f[1])}</span></span></button>`).join(""):""}
  <div class="locknote">受信箱は当時（2023年）のTikTokの構成。公式アカウントの通知は、物語の進行にあわせて届くよ。</div></div></div>`);
  document.querySelectorAll("#ovl [data-ttib]").forEach(b=>b.addEventListener("click",()=>{const gi=+b.dataset.ttib;closeOvl();setTimeout(()=>{const idx=ttList.findIndex(p=>TT_POSTS.indexOf(p)===gi);const items=document.querySelectorAll("#tt-feed .tt-item");if(idx>=0&&items[idx])items[idx].scrollIntoView({block:"start"});},90);}));
  const lv=$("#ovl [data-ttiblive]");if(lv)lv.addEventListener("click",()=>{closeOvl();setTimeout(openTTLive,90);});}
@@ -3819,7 +3823,7 @@ function openNotifSettings(){
  ovl(`<div class="ovl-full" style="background:#f2f2f7"><div class="dm-head" style="background:#f2f2f7"><button class="back" data-close>‹</button><span class="un">通知</span><span style="width:30px"></span></div>
  <div class="abody" style="flex:1">
  <div class="nt-lab">アプリごとに通知の受け取り方を設定できます。</div>
- <div class="nt-grp">${NOTIF_APPS.map(a=>`<button class="nt-row" data-napp="${a[0]}"><span class="nic" style="background:${a[2]}">${a[3]}</span><span class="nnm">${a[1]}</span><span class="nst">${notifSet[a[0]].on?"オン":"オフ"}<span class="chev">›</span></span></button>`).join("")}</div>
+ <div class="nt-grp">${NOTIF_APPS.filter(a=>a[0]!=="ig"||igOpen()).map(a=>`<button class="nt-row" data-napp="${a[0]}"><span class="nic" style="background:${a[2]}">${a[3]}</span><span class="nnm">${a[1]}</span><span class="nst">${notifSet[a[0]].on?"オン":"オフ"}<span class="chev">›</span></span></button>`).join("")}</div>
  <div class="nt-lab">プレビュー表示や集中モードとの連動は、各アプリの詳細で切り替えるよ。</div>
  </div></div>`);
  document.querySelectorAll("#ovl [data-napp]").forEach(b=>b.addEventListener("click",()=>openNotifApp(b.dataset.napp)));}
@@ -3911,7 +3915,7 @@ function closeFolder(){const p=$("#folder-pop");if(p)p.classList.remove("on");}
 function openFolder(name,ids){
  let p=$("#folder-pop"); if(!p){p=document.createElement("div");p.id="folder-pop";p.addEventListener("click",e=>{if(e.target===p)closeFolder();});($("#phone")||document.body).appendChild(p);}
  const byId={}; APPS.forEach(a=>byId[a.id]=a);
- p.innerHTML=`<div class="fp-box"><div class="fp-t">📁 ${name}</div><div class="fp-grid">${ids.map(id=>byId[id]?appHTML(byId[id],""):"").join("")}</div></div>`;
+ p.innerHTML=`<div class="fp-box"><div class="fp-t">📁 ${name}</div><div class="fp-grid">${ids.filter(id=>id!=="ig"||igOpen()).map(id=>byId[id]?appHTML(byId[id],""):"").join("")}</div></div>`;
  p.classList.add("on");
 }
 document.addEventListener("click",e=>{if(e.target.closest("#folder-pop [data-app]"))closeFolder();});
@@ -3936,7 +3940,7 @@ const DAILY_TALKS=[
 ];
 const LIFE_MEMOS=[
  {u:1,t:"入所の日の朝ごはん",b:"ソウルに着いた最初の朝、母が作った味噌汁。日本の味がした。これから二つの生活が始まる。どっちの私も、ちゃんとご飯を食べること。それが最初の約束。"},
- {u:3,t:"学校の遠足のしおり",b:"ソウル日本人学校の遠足。女子の制服で参加。SMの子たちとは世界が別。切り替えは意外と簡単で、難しく考えているのは大人だけなのかもしれない。"},
+ {u:3,t:"学校の遠足のしおり",b:"ソウル日本人学校の遠足。女子の制服で参加。SMの子たちとは世界が別。切り替えは意外と簡単。難しく考えているのは、大人だけなのかも。"},
  {u:5,t:"母のカレーライス",b:"12月18日の前後は、母がカレーを作る。理由は聞かない。温かいものを一緒に食べる。それがこの家の、あの日の過ごし方。"},
  {u:7,t:"帰省の飛行機",b:"年に数回、日本の実家へ。父は単身赴任のまま。短い滞在で「大きくなったな」と言われる。背が伸びる速度は、向こうの時間とこっちの時間で違う気がする。"},
  {u:10,t:"作詞ノート、1冊目",b:"2018年の秋から書き始めた言葉の断片。最初のページは子どもの字。下手でも、捨てない。書く人の背中を追うのは、歌う人の背中を追うのと同じこと。"},
