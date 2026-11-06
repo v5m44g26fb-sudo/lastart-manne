@@ -6,6 +6,12 @@
 - 土台作品『デビュー前の彼らに出会う件』（LASTART編）のリポジトリで検証済みの公式確認済み写真セットを再利用。
 - 井汲大翔の写真（av-hiroto.jpg）は本作では使用しないため、複製時に削除済み。
 
+## メンバー写真の追加（v5、2026-11-07取得）
+- assets/av-sungchan.jpg ― ソンチャン。RIIZE日本公式サイト（riizeofficial.jp）のプロフィールページ「SUNGCHAN | PROFILE | RIIZE」（生年月日：September 13, 2001 の表記あり）掲載の公式写真。
+- assets/av-eunseok.jpg ― ウンソク。同じくRIIZE日本公式サイトのプロフィールページ「EUNSEOK | PROFILE | RIIZE」（生年月日：March 19, 2001 の表記あり）掲載の公式写真。
+- assets/av-yuta.jpg ― ユウタ。NCT日本公式サイト（nct-jp.net）のプロフィール詳細ページ（YUTA／Birth：1995/10/26 の表記あり）掲載の公式写真。
+- スンオンは、公式写真を「出典の文脈で本人と確実に確認できる」形では取得できなかったため、v5でもイニシャルアイコンのまま（EVNNE離脱・AND2BLE移籍の過渡期で公式プロフィールの確実な取得経路がなく、候補画像は別人とみられるものだったため不採用。身元不明の候補写真は採用しない）。
+
 ## 主人公の写真（assets/nao-profile.jpg、assets/av-nao.jpg）
 - 本人指定の作中ビジュアル専用写真（男装設定・本作専用）を使用。女性の写真は使用していない。
 - 担当範囲：選抜編以降のプロフィール相当表示（nao-profile.jpg）／アバター（av-nao.jpg）。
