@@ -38,6 +38,7 @@ NCT WISH公式リリースのジャケットアートワーク。レーベル（
 - jacket-color.jpg ― 『COLOR』（2025）。写真アルバム「COLORと、その先（2025〜2028）」。
 - jacket-wishlist.jpg ― 『WISHLIST』（2026）。同上。
 - jacket-ode.jpg ― 『Ode to Love』（2026）。同上。
+- v12（2026-11-26）：タイトル画面のキービジュアル3枚目として jacket-wishlist.jpg（『WISHLIST』2026・公式ジャケット）を追加。既存アセットの再利用のみで、新規取得・生成はなし。
 
 ## 風景・食べ物写真（Wikimedia Commons等のCCライセンス）
 タイトル画面の注記より転記：
