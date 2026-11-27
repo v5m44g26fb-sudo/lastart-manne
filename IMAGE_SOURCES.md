@@ -42,7 +42,6 @@ NCT WISH公式リリースのジャケットアートワーク。レーベル（
 
 ## 風景・食べ物写真（Wikimedia Commons等のCCライセンス）
 タイトル画面の注記より転記：
-- トッポッキ（food-tteokbokki.jpg）＝ jetalone／CC BY 2.0
 - 漢江の夜景（hangang-night.jpg）＝ d'n'c
 - 大阪城（osaka-castle.jpg）＝ Falbisoner／CC BY-SA 4.0
 - 弘大（hongdae-street.jpg）＝ Minseong Kim／CC BY-SA 4.0
@@ -78,6 +77,10 @@ NCT WISH公式リリースのジャケットアートワーク。レーベル（
 - assets/grp-sion.jpg ― なおとシオンのツーショット、会社の廊下（2023）。エントリ「先輩と、食堂と（2023）」（n:5）。
 - assets/grp-ryoriku.jpg ― なお・リョウ・リクの3人写真、合宿所の食堂（2023）。同エントリ。
 - assets/grp-backstage.jpg ― 楽屋での5人の集合写真、本番前の円陣（2024）。エントリ「デビュー前夜（2024）」（n:6）。
+
+## 不要ファイルの整理（2026-11-27、版数変更なし）
+- assets/food-tteokbokki.jpg を削除。土台作品から継承したCC写真（jetalone／CC BY 2.0）だが、本作のコード（index.html）からは初版から一度も参照されておらず、ゲーム内では表示されないファイルだったため、本人の指示で整理した（git履歴には残る）。上記クレジット一覧からも該当行を除いた。
+- assets/media-generation-*.json（生成記録8件）は、採用済み生成写真の来歴記録として IMAGE_SOURCES.md が参照しているため残置。assets/av-nao.jpg と assets/nao-profile.jpg は同一内容だが両方ともコードから参照されているため残置。
 
 ## 音声
 - 新規の音声生成は行っていない（ボイスなし）。
